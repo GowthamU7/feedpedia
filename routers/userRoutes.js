@@ -78,6 +78,7 @@ const signup = async (req,res)=>{
 const logout = async(req,res)=>{
     try {
         let tkn = req.headers.authorization.split(' ')[1]
+
         let {email} = (utils.decodeToken(tkn)).payload
         let splice_index = -1
         let tokens = (await models.userModel.find({email}))[0].tokens
@@ -94,7 +95,7 @@ const logout = async(req,res)=>{
         res.json({'msg':'Logged out!'})
 
     } catch (err) {
-        
+        console.log(err)
         res.json({'msg':'gone wrong'})
     }
 }
