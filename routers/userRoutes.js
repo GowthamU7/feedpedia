@@ -19,11 +19,13 @@ const login = async (req,res)=>{
         if(user.length === 0) {
             return res.json({'msg':'Email or password is incorrect.'})
         }
-        if(!token){
+        if(token === 'null' || !token){
+
             token = utils.genToken({email})
             await models.userModel.updateOne({email},{$push:{tokens:{tkn:token}}})
             return res.json({tkn:token,authorialName:user[0].authorialName})
         }
+
         let status = utils.verifyToken(token)
         
         if(status.expired) {
@@ -78,7 +80,7 @@ const signup = async (req,res)=>{
 const logout = async(req,res)=>{
     try {
         let tkn = req.headers.authorization.split(' ')[1]
-        if(!tkn) return res.json({'msg':'Logged out!'}) 
+        if(tkn === 'null') return res.json({'msg':'Logged out!'}) 
         console.log(tkn)
         let {email} = (utils.decodeToken(tkn)).payload
         let splice_index = -1

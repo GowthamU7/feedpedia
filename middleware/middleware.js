@@ -5,7 +5,7 @@ async function Middleware(req,res,next){
     try {
         let token = req.headers.authorization.split(' ')[1]
         let status = utils.verifyToken(token)
-        if(!token) return res.json({'msg':'Token Expired!'})
+        if(!token || token === 'null') return res.json({'msg':'Token Expired!'})
         if(status.expired){
             let {email} = (utils.decodeToken(token)).payload
             let splice_index = -1
