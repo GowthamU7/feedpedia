@@ -77,6 +77,7 @@ const signup = async (req,res)=>{
 
 const logout = async(req,res)=>{
     try {
+        console.log(req.header)
         let tkn = req.headers.authorization.split(' ')[1]
         if(!tkn) return res.json({'msg':'Logged out!'}) 
         let {email} = (utils.decodeToken(tkn)).payload
