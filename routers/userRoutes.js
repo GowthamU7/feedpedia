@@ -81,7 +81,6 @@ const logout = async(req,res)=>{
     try {
         let tkn = req.headers.authorization.split(' ')[1]
         if(tkn === 'null') return res.json({'msg':'Logged out!'}) 
-        console.log(tkn)
         let {email} = (utils.decodeToken(tkn)).payload
         let splice_index = -1
         let tokens = (await models.userModel.find({email}))[0].tokens

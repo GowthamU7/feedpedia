@@ -3,7 +3,7 @@ const SECRET_KEY = "enfohf8034gh34bvu4vn3evnvnv0i2vieew"
 
 
 function genToken(payload){
-    return jwt.sign({exp:Math.floor(Date.now() / 1000)+60*3,payload},SECRET_KEY)
+    return jwt.sign({exp:Math.floor(Date.now() / 1000)+60*5,payload},SECRET_KEY)
 }
 
 
