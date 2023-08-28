@@ -4,6 +4,7 @@ const postAFeed = async (req,res)=>{
     try {
         let feedReq = {...req.body}
         let feed = await new models.feedModel({...feedReq})
+        
         await feed.save()
         res.json({'msg':'Posted, Hurrey!'})
     } catch (err) {
@@ -69,4 +70,26 @@ const putFeed = async (req,res)=>{
 
 }
 
-module.exports = {showFullFeed,postAFeed,getFeed,putFeed}
+
+const getMyFeed = async(req,res) =>{
+    try {
+        let author = req.query.author
+        let feed = await models.feedModel.find({author:author})
+        res.json(feed)
+    } catch (err) {
+        res.json({'msg':'something went wrong'})
+    }
+} 
+
+
+const deleteMyFeed = async(req,res)=>{
+    try {
+        let id = req.params.id
+        let data = await models.feedModel.findByIdAndDelete(id)
+        res.json({'msg':'post deleted'})
+    } catch (err) {
+        console.log({'msg':'something went wrong'})      
+    }
+}
+
+module.exports = {showFullFeed,postAFeed,getFeed,putFeed,getMyFeed,deleteMyFeed}

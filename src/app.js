@@ -23,7 +23,8 @@ router.get('/feed',feedRouters.showFullFeed)
 router.post('/feed',Middleware,feedRouters.postAFeed)
 router.get('/feed/:id',feedRouters.getFeed)
 router.put('/feed',Middleware,feedRouters.putFeed)
-
+router.get('/myfeed',Middleware,feedRouters.getMyFeed)
+router.delete('/delete/:id',Middleware,feedRouters.deleteMyFeed)
 
 app.use(router)
 
